@@ -5,23 +5,30 @@ import {
 } from 'components/ContactForm/ContactForm.styled';
 
 import { StyledWrapper } from './Filter.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeFilter } from '../../redux/contacts/contactsSlice';
 
-export class Filter extends React.Component {
-  render() {
-    const { filterState, onFilter } = this.props;
-    return (
-      <StyledWrapper>
-        <StyledLabel>
-          Find contact
-          <StyledInput
-            type="text"
-            name="filter"
-            value={filterState}
-            placeholder="Enter contact's name"
-            onChange={e => onFilter(e)}
-          />
-        </StyledLabel>
-      </StyledWrapper>
-    );
-  }
-}
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const filterState = useSelector(state => state.filter);
+
+  const handleFilterInput = e => {
+    const { value } = e.target;
+    dispatch(changeFilter(value));
+  };
+
+  return (
+    <StyledWrapper>
+      <StyledLabel>
+        Find contact
+        <StyledInput
+          type="text"
+          name="filter"
+          value={filterState}
+          placeholder="Enter contact's name"
+          onChange={handleFilterInput}
+        />
+      </StyledLabel>
+    </StyledWrapper>
+  );
+};

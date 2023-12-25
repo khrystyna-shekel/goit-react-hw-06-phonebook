@@ -1,29 +1,31 @@
 import React from 'react';
 import { ContactListItem } from 'components/ContactListItem/ContactListItem';
 import { StyledWrapper } from './ContactList.Styled';
+import { useSelector } from 'react-redux';
 
-export class ContactList extends React.Component {
-  render() {
-    const { contacts, onDeleteContact } = this.props;
-    if (!contacts?.length) {
-      return (
-        <h4 style={{ marginTop: '15px', textAlign: 'center' }}>
-          Your phonebook is empty!
-        </h4>
-      );
-    }
-    return (
-      <StyledWrapper>
-        {contacts.map(({ id, name, number }) => (
-          <ContactListItem
-            key={id}
-            id={id}
-            name={name}
-            number={number}
-            onDeleteContact={onDeleteContact}
-          />
-        ))}
-      </StyledWrapper>
+export const ContactList = () => {
+  const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
+
+  function filteredContacts() {
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   }
-}
+
+  if (!contacts?.length) {
+    return (
+      <h4 style={{ marginTop: '15px', textAlign: 'center' }}>
+        Your phonebook is empty!
+      </h4>
+    );
+  }
+
+  return (
+    <StyledWrapper>
+      {filteredContacts().map(({ id, name, number }) => (
+        <ContactListItem key={id} id={id} name={name} number={number} />
+      ))}
+    </StyledWrapper>
+  );
+};

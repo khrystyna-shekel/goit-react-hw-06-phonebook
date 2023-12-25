@@ -6,10 +6,15 @@ import {
   StyledBtn,
 } from './ContactForm.styled';
 import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from '../../redux/contacts/contactsSlice';
 
-export const ContactForm = ({ contacts, handleAddContact }) => {
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
 
   const handleInput = ({ target }) => {
     const { name, value } = target;
@@ -39,8 +44,7 @@ export const ContactForm = ({ contacts, handleAddContact }) => {
       alert(`Contact with name ${name} already exists!`);
       return;
     }
-
-    handleAddContact(newContact);
+    dispatch(addContact(newContact));
     setName('');
     setNumber('');
   };
