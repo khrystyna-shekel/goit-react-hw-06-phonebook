@@ -8,12 +8,13 @@ import {
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/contacts/contactsSlice';
+import { selectContacts } from '../../redux/contacts/selectors';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const handleInput = ({ target }) => {
@@ -40,7 +41,7 @@ export const ContactForm = () => {
       number,
     };
 
-    if (contacts.some(contact => contact.name === name)) {
+    if (contacts.some(contact => contact.name === name.toLowerCase())) {
       alert(`Contact with name ${name} already exists!`);
       return;
     }
