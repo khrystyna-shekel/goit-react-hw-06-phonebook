@@ -5,17 +5,6 @@ import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 
 export const App = () => {
-  // useEffect(() => {
-  //   const contacts = JSON.parse(window.localStorage.getItem('contactsData'));
-  //   if (contacts?.length) {
-  //     setContacts(contacts);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   window.localStorage.setItem('contactsData', JSON.stringify(contacts));
-  // }, [contacts]);
-
   return (
     <div
       style={{
