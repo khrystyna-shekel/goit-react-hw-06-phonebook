@@ -41,7 +41,11 @@ export const ContactForm = () => {
       number,
     };
 
-    if (contacts.some(contact => contact.name === name.toLowerCase())) {
+    if (
+      contacts.some(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
       alert(`Contact with name ${name} already exists!`);
       return;
     }
